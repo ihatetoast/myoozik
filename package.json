@@ -2,16 +2,30 @@
   "name": "myoozik",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "antd": "^3.9.3",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-scripts": "1.1.5"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "description": "Toolbox:",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ihatetoast/myoozik.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ihatetoast/myoozik/issues"
+  },
+  "homepage": "https://github.com/ihatetoast/myoozik#readme",
+  "dependencies": {
+    "antd": "^3.9.3",
+    "dotenv": "^6.0.0",
+    "node-spotify-api": "^1.0.7",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-scripts": "1.1.5"
   }
 }
