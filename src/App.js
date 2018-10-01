@@ -3,17 +3,8 @@ import { Form, Icon, Input, Button } from 'antd';
 
 import './App.css';
 require('dotenv').config();
-const Spotify = require('node-spotify-api');
-const FormItem = Form.Item;
 
-// var spotify = new Spotify({
-//   id: <your spotify client id>,
-//   secret: <your spotify client secret>
-// });
-const spotify = new Spotify({
-  id: process.env.REACT_APP_SPOTIFY_ID,
-  secret: process.env.REACT_APP_SPOTIFY_SECRET
-});
+const FormItem = Form.Item;
 
 export class App extends Component {
   constructor(props) {
@@ -32,6 +23,11 @@ export class App extends Component {
     e.preventDefault();
 
     console.log(this.state);
+    const BASE_URL = 'https://api.spotify.com/v1/search?';
+    const FETCH_URL =
+      BASE_URL + 'q=' + this.state.query + '&type=artist&limit=1';
+    var accessToken = process.env.REACT_APP_SPOTIFY_ACCESS_TOKEN;
+    var myHeaders = new Headers();
   }
   render() {
     return (
