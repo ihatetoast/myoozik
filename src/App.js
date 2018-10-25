@@ -10,7 +10,8 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: ''
+      query: '',
+      artist: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,12 +23,27 @@ export class App extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    console.log(this.state);
-    const BASE_URL = 'https://api.spotify.com/v1/search?';
-    const FETCH_URL =
-      BASE_URL + 'q=' + this.state.query + '&type=artist&limit=1';
-    var accessToken = process.env.REACT_APP_SPOTIFY_ACCESS_TOKEN;
-    var myHeaders = new Headers();
+    const accessToken = process.env.REACT_APP_SPOTIFY_REFRESH_TOKEN;
+    console.log('current state: ', this.state);
+    const BASE_URL = 'https://api.spotify.com/v1/search';
+    let FETCH_URL = `${BASE_URL}?type=artist&limit=1&q=${this.state.query}`;
+
+    var options = {
+      method: 'GET',
+      mode: 'cors',
+      headers: new Headers({
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json'
+      })
+    };
+    fetch(FETCH_URL, options)
+      .then(response => response.json())
+      .then(json => {
+        const artist = json.artists.items[0];
+        console.log(artist);
+        this.setState({ artist });
+      });
+    console.log(FETCH_URL);
   }
   render() {
     return (
@@ -62,14 +78,15 @@ export class App extends Component {
                 <div className="name">Sweet</div>
                 <div className="info">
                   <p>
-                    Lorem ipsum dolor amet tousled copper mug craft beer neutra
-                    iceland lo-fi keytar. Flannel trust fund fixie 3 wolf moon
-                    normcore salvia viral hella taxidermy godard. Pork belly
-                    readymade drinking vinegar, humblebrag leggings thundercats
-                    lomo hell of cred man bun echo park. Tbh crucifix green
-                    juice bitters polaroid, art party vice VHS iPhone butcher
-                    hoodie bespoke. Paleo pug hell of vape slow-carb, poutine
-                    bushwick retro twee 90's four loko unicorn hashtag kitsch.{' '}
+                    Ima style this shit later Lorem ipsum dolor amet tousled
+                    copper mug craft beer neutra iceland lo-fi keytar. Flannel
+                    trust fund fixie 3 wolf moon normcore salvia viral hella
+                    taxidermy godard. Pork belly readymade drinking vinegar,
+                    humblebrag leggings thundercats lomo hell of cred man bun
+                    echo park. Tbh crucifix green juice bitters polaroid, art
+                    party vice VHS iPhone butcher hoodie bespoke. Paleo pug hell
+                    of vape slow-carb, poutine bushwick retro twee 90's four
+                    loko unicorn hashtag kitsch.{' '}
                   </p>
                 </div>
               </div>
