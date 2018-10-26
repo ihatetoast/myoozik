@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Form, Icon, Input, Button } from 'antd';
 
 import './App.css';
+
+import './Artist';
+import Artist from './Artist';
 require('dotenv').config();
 
 const FormItem = Form.Item;
@@ -23,10 +26,14 @@ export class App extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const accessToken = process.env.REACT_APP_SPOTIFY_REFRESH_TOKEN;
-    console.log('current state: ', this.state);
-    const BASE_URL = 'https://api.spotify.com/v1/search';
-    let FETCH_URL = `${BASE_URL}?type=artist&limit=1&q=${this.state.query}`;
+    const accessToken = process.env.SPOTIFY_ACCESS_TOKEN;
+
+    const BASE_URL = `https://api.spotify.com/v1/search?`;
+
+    let FETCH_URL = `${BASE_URL}q=${this.state.query.replace(
+      /\s/g,
+      '+'
+    )}&type=artist&limit=1`;
 
     var options = {
       method: 'GET',
@@ -74,22 +81,7 @@ export class App extends Component {
           </section>
           <section className="results-section">
             <div className="searchResults">
-              <div className="artist-info">
-                <div className="name">Sweet</div>
-                <div className="info">
-                  <p>
-                    Ima style this shit later Lorem ipsum dolor amet tousled
-                    copper mug craft beer neutra iceland lo-fi keytar. Flannel
-                    trust fund fixie 3 wolf moon normcore salvia viral hella
-                    taxidermy godard. Pork belly readymade drinking vinegar,
-                    humblebrag leggings thundercats lomo hell of cred man bun
-                    echo park. Tbh crucifix green juice bitters polaroid, art
-                    party vice VHS iPhone butcher hoodie bespoke. Paleo pug hell
-                    of vape slow-carb, poutine bushwick retro twee 90's four
-                    loko unicorn hashtag kitsch.{' '}
-                  </p>
-                </div>
-              </div>
+              <Artist artist={this.state.artist} />
               <div className="albums">
                 {
                   '. . .be expecting lots of album cover divs here, not not yet, old mate . . . '
