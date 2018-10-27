@@ -4,15 +4,13 @@ import './App.css';
 class Artist extends Component {
   render() {
     let artist = {
-      name: null,
+      name: '',
       images: [{ url: '' }],
-      followers: {
-        total: ''
-      },
+      followers: { total: '' },
       genres: []
     };
-    //if the data returned is not null, set artist to be this.props.artist
 
+    //if the data returned is not null, set artist to be this.props.artist
     artist = this.props.artist !== null ? this.props.artist : artist;
     return (
       <div className="artist-info">
